@@ -1,6 +1,7 @@
 ---
 # tasks file for lighthouse-role
 - name: add repo nginx
+  become: true
   ansible.builtin.copy:
     dest: /etc/yum.repos.d/nginx.repo
     mode: "0755"
@@ -11,6 +12,7 @@
       gpgcheck=0
       enabled=1
 - name: install nginx and git
+  become: true
   ansible.builtin.yum:
     name:
       - nginx
@@ -19,6 +21,7 @@
     update_cache: yes
   when: not ansible_check_mode
 - name: Get lighthouse from git
+  become: true
   ansible.builtin.git:
     repo: "https://github.com/VKCOM/lighthouse.git"
     dest: "{{ lighthouse_home_dir }}"
